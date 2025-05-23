@@ -3,6 +3,7 @@ import { db } from "./database.js";
 import { sleep }  from "./sleep.js";
 
 async function getReview(appId=null, token=null) {
+  console.log(`Reviews: ${appId}`, token)
   if(!db) return null;
 
   if(!appId){
@@ -36,7 +37,7 @@ async function getReview(appId=null, token=null) {
   } catch (error) {
     console.log(error)
   } finally {
-    console.log(`Done: adding reviews`)
+    console.log(`Done: adding reviews ${appId}`)
   }
 }
 
