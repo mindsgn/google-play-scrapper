@@ -12,7 +12,3 @@ setTimeout(() => {
 setTimeout(() => {
     getReview();
 }, 5000);
-
-setTimeout(() => {
-    generateIdea();
-}, 15000);
