@@ -1,9 +1,10 @@
 import { db } from "./database.js";
 
 export async function generateIdea() {
+    if(!db) return null;
     const response = await db.get(`SELECT * FROM apps ORDER BY RANDOM() LIMIT 1`);
 
-    const { 
+    const {
         appID: appId, 
         title,
         description, 

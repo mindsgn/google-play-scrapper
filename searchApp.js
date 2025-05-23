@@ -5,12 +5,14 @@ import { sleep } from "./sleep.js";
 
 const term = getRandomWord();
 
-function searchApp () {
+async function searchApp () {
+  if(!db) return null;
+
   try{
-    gplay.search({
+    await gplay.search({
       term,
-      throttle: 1,
-      fullDetail: true
+      fullDetail: true,
+      num: 250
     }).then( async(response) => {
       for (const app of response){
         const {
@@ -22,15 +24,16 @@ function searchApp () {
             minInstalls,
             maxInstalls,
             score,
+            genre,
             ratings,
             reviews,
             url,
             updated,
             released
         } = app;
-
+        
         const sql = `
-          INSERT INTO apps (
+          INSERT OR IGNORE INTO apps (
             appID, 
             title, 
             description, 
@@ -39,12 +42,13 @@ function searchApp () {
             minInstalls, 
             maxInstalls, 
             score, 
+            genre,
             ratings, 
             reviews, 
             url, 
             updated, 
             released
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
         await db.run(sql, [
           appId, 
@@ -55,6 +59,7 @@ function searchApp () {
           minInstalls,
           maxInstalls,
           score,
+          genre,
           ratings,
           reviews,
           url,
@@ -64,10 +69,12 @@ function searchApp () {
         await sleep(2000);
       }
     }, (error) => {
-      console.log(error)
+      console.log(error);
     })
   } catch (error){
     console.log(error);
+  } finally { 
+    console.log(`Done: searching ${term}`)
   }
 }
 
