@@ -3,14 +3,13 @@ import { open } from 'sqlite';
 
 let db = null
 
-db = await open({
-  filename: `./apps.db`,
-  driver: sqlite3.Database,
-});
-
 async function init(){
-  
-  db.run(
+  db = await open({
+    filename: `./apps.db`,
+    driver: sqlite3.Database,
+  });
+
+  await db.run(
     `
       CREATE TABLE IF NOT EXISTS apps (
         appID VARCHAR PRIMARY KEY,
@@ -31,7 +30,7 @@ async function init(){
     `
   );
   
-  db.run(
+  await db.run(
     `
       CREATE TABLE IF NOT EXISTS reviews (
         appID VARCHAR, 
@@ -41,6 +40,8 @@ async function init(){
       )
     `
   );
+
+  return;
 }
 
 export { db, init }

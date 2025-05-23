@@ -6,6 +6,7 @@
   "type": "module",
   "dependencies": {
     "google-play-scraper": "^10.0.1",
+    "node-cron": "^4.0.7",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   }

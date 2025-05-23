@@ -3,11 +3,12 @@ import { getRandomWord } from "./wordlist.js";
 import { db } from "./database.js";
 import { sleep } from "./sleep.js";
 
-const term = getRandomWord();
+
 
 async function searchApp () {
   if(!db) return null;
-
+  const term = getRandomWord();
+  console.log(`searching: ${term}`);
   try{
     await gplay.search({
       term,
