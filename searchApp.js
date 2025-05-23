@@ -3,8 +3,6 @@ import { getRandomWord } from "./wordlist.js";
 import { db } from "./database.js";
 import { sleep } from "./sleep.js";
 
-
-
 async function searchApp () {
   if(!db) return null;
   const term = getRandomWord();
@@ -74,7 +72,7 @@ async function searchApp () {
     })
   } catch (error){
     console.log(error);
-  } finally { 
+  } finally {
     console.log(`Done: searching ${term}`)
   }
 }
